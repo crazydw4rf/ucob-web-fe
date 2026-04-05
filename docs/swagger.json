@@ -1,0 +1,256 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Ucob API Specs",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "https://6603fd5d-ee26-4210-af4a-f7b76aa23bad.mock.pstmn.io"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Login User",
+        "responses": {
+          "200": {
+            "description": "Login Success",
+            "headers": {
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "token=token_here; HttpOnly; SameSite=Strict; Path=/; Max-Age=3600"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "first_name": {
+                          "type": "string"
+                        },
+                        "last_name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "code": 200,
+                  "data": {
+                    "first_name": "Ucup",
+                    "last_name": "Surucup",
+                    "email": "ucup@xyz.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Auths"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "email": "ucup@xyz.com",
+                "password": "ucup123"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "Create User / Register",
+        "responses": {
+          "201": {
+            "description": "Create Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "description": "Direct object of an entity or a message object"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          },
+                          "description": "List of entities"
+                        }
+                      ]
+                    }
+                  },
+                  "required": ["success", "code", "data"]
+                },
+                "example": {
+                  "success": true,
+                  "code": 201,
+                  "data": {
+                    "message": "User created."
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["message", "kind"]
+                    }
+                  },
+                  "required": ["success", "code", "error"]
+                },
+                "example": {
+                  "success": false,
+                  "code": 400,
+                  "error": {
+                    "message": "email or password not valid",
+                    "kind": "BadRequest"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "User Exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "success": false,
+                  "code": 409,
+                  "error": {
+                    "message": "email already exists",
+                    "kind": "ResourceConflict"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "first_name": "Ucup",
+                "last_name": "Surucup",
+                "email": "ucup@xyz.com",
+                "password": "ucup123",
+                "role": "USER"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
