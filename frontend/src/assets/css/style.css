@@ -1,0 +1,279 @@
+/* ==========================================================================
+   UCOB - Used Cooking Oil Buying & Selling Platform
+   Main Stylesheet
+   ========================================================================== */
+
+:root {
+  --primary-color: #2e7d32; /* Eco Green */
+  --primary-hover: #1b5e20;
+  --secondary-color: #f9a825; /* Oil Gold */
+  --secondary-hover: #f57f17;
+  --bg-color: #f8f9fa;
+  --text-dark: #212529;
+  --text-muted: #6c757d;
+  --white: #ffffff;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.text-primary { color: var(--primary-color) !important; }
+.text-secondary { color: var(--secondary-color) !important; }
+
+/* --- Buttons --- */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: #fff;
+  transition: var(--transition);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+  border-color: var(--secondary-hover);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* --- Navbar --- */
+.navbar {
+  box-shadow: var(--shadow-sm);
+  background-color: var(--white);
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  color: var(--primary-color) !important;
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+.navbar-brand span {
+  color: var(--secondary-color);
+}
+
+.nav-link {
+  font-weight: 500;
+  color: var(--text-dark);
+  transition: var(--transition);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary-color);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+  background: linear-gradient(135deg, rgba(46,125,50,0.05) 0%, rgba(249,168,37,0.05) 100%);
+  padding: 6rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+/* --- Cards --- */
+.card {
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  background: var(--white);
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+}
+
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding: 1.25rem 1.5rem;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* --- Forms --- */
+.form-control, .form-select {
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  border: 1px solid #dee2e6;
+  transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(46, 125, 50, 0.25);
+}
+
+/* --- Dashboard Layout --- */
+.dashboard-wrapper {
+  display: flex;
+  min-height: calc(100vh - 76px); /* minus navbar */
+}
+
+.sidebar {
+  width: 280px;
+  background: var(--white);
+  border-right: 1px solid rgba(0,0,0,0.05);
+  padding: 2rem 1rem;
+}
+
+.sidebar .nav-link {
+  border-radius: var(--radius-md);
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+
+.sidebar .nav-link.active {
+  background-color: rgba(46, 125, 50, 0.1);
+  color: var(--primary-color);
+}
+
+.sidebar .nav-link i {
+  width: 24px;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 2rem;
+  background: var(--bg-color);
+}
+
+/* --- Status Badges --- */
+.badge-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+.badge-accepted {
+  background-color: #d4edda;
+  color: #155724;
+}
+.badge-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* --- Utilities & Animation --- */
+.gsap-reveal {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.image-preview {
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  border: 2px dashed #dee2e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Loader */
+.loader-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
+  transition: var(--transition);
+}
+.loader-overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--secondary-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .dashboard-wrapper {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unified Dashboard - UCOB</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <style>
+      .table-image {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid #dee2e6;
+      }
+      .sidebar .nav-link {
+        cursor: pointer;
+        text-align: left;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100 bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white sticky-top shadow-sm" id="top-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html"
+          >UC<span class="text-secondary">OB</span>
+          <span id="admin-badge" class="badge bg-danger ms-2 fs-6 d-none">ADMIN</span></a
+        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">Profile</a>
+            </li>
+            <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+              <a class="btn btn-primary px-4 active" href="dashboard.html">Dashboard</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard-wrapper">
+      <!-- Sidebar -->
+      <aside class="sidebar d-flex flex-column shadow-sm bg-white" style="z-index: 10">
+        <h6 class="text-uppercase text-muted fw-bold mb-3 px-3">Navigation</h6>
+
+        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <!-- USER MENU ITEMS -->
+          <div id="user-menu" class="d-none">
+            <button
+              class="nav-link w-100 active text-dark"
+              id="tab-user-overview"
+              data-bs-toggle="pill"
+              data-bs-target="#pane-user-overview"
+              type="button"
+              role="tab"
+            >
+              <i class="bi bi-speedometer2 me-2"></i> My Overview
+            </button>
+            <button
+              class="nav-link w-100 text-dark"
+              id="tab-user-sell"
+              data-bs-toggle="pill"
+              data-bs-target="#pane-user-sell"
+              type="button"
+              role="tab"
+            >
+              <i class="bi bi-droplet me-2"></i> Sell Oil
+            </button>
+            <button
+              class="nav-link w-100 text-dark"
+              id="tab-user-buy"
+              data-bs-toggle="pill"
+              data-bs-target="#pane-user-buy"
+              type="button"
+              role="tab"
+            >
+              <i class="bi bi-cart me-2"></i> Buy Oil
+            </button>
+          </div>
+
+          <!-- ADMIN MENU ITEMS -->
+          <div id="admin-menu" class="d-none">
+            <button
+              class="nav-link w-100 text-dark"
+              id="tab-admin-sell"
+              data-bs-toggle="pill"
+              data-bs-target="#pane-admin-sell"
+              type="button"
+              role="tab"
+            >
+              <i class="bi bi-droplet-fill me-2"></i> Manage Sells
+            </button>
+            <button
+              class="nav-link w-100 text-dark"
+              id="tab-admin-buy"
+              data-bs-toggle="pill"
+              data-bs-target="#pane-admin-buy"
+              type="button"
+              role="tab"
+            >
+              <i class="bi bi-cart-fill me-2"></i> Manage Buys
+            </button>
+          </div>
+        </div>
+
+        <!-- Sidebar User Profile -->
+        <div class="mt-auto border-top pt-3 px-3 pb-2">
+          <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-person-circle fs-3 text-secondary me-3"></i>
+            <div>
+              <div class="fw-bold text-truncate" id="sidebar-user-name" style="max-width: 150px">Loading...</div>
+              <div class="small text-muted" id="sidebar-user-role">User</div>
+            </div>
+          </div>
+          <button class="btn btn-outline-danger btn-sm w-100 btn-logout">Logout</button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="dashboard-content">
+        <div class="container-fluid gsap-reveal">
+          <div class="tab-content" id="v-pills-tabContent">
+            <!-- ============================== -->
+            <!--          USER PANES            -->
+            <!-- ============================== -->
+
+            <!-- User Overview Pane -->
+            <div class="tab-pane fade" id="pane-user-overview" role="tabpanel">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>My Activity Overview</h2>
+                <button class="btn btn-sm btn-outline-secondary" onclick="loadUserHistory()">
+                  <i class="bi bi-arrow-clockwise"></i> Refresh
+                </button>
+              </div>
+              <div class="row g-4">
+                <div class="col-12 col-xl-6">
+                  <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                      <h5 class="mb-0 text-primary"><i class="bi bi-droplet-fill me-2"></i>Recent Sell Requests</h5>
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="table-responsive">
+                        <table class="table table-hover mb-0 align-middle">
+                          <thead class="table-light">
+                            <tr>
+                              <th class="ps-4">Date</th>
+                              <th>Quantity (L)</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody id="user-sell-history">
+                            <tr>
+                              <td colspan="3" class="text-center py-4">Loading...</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-6">
+                  <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                      <h5 class="mb-0 text-secondary"><i class="bi bi-cart-fill me-2"></i>Recent Buy Requests</h5>
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="table-responsive">
+                        <table class="table table-hover mb-0 align-middle">
+                          <thead class="table-light">
+                            <tr>
+                              <th class="ps-4">Date</th>
+                              <th>Quantity (L)</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody id="user-buy-history">
+                            <tr>
+                              <td colspan="3" class="text-center py-4">Loading...</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- User Sell Form Pane -->
+            <div class="tab-pane fade" id="pane-user-sell" role="tabpanel">
+              <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                      <h4 class="mb-0 text-primary">Sell Your Used Cooking Oil</h4>
+                    </div>
+                    <div class="card-body p-4">
+                      <div id="sell-alert-container"></div>
+                      <form id="sell-form">
+                        <div class="mb-3">
+                          <label class="form-label fw-bold">Quantity (Liters) *</label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="sell-quantity"
+                            step="0.1"
+                            min="1"
+                            required
+                            placeholder="e.g. 10.5"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label fw-bold">Pickup Address *</label>
+                          <textarea
+                            class="form-control"
+                            id="sell-address"
+                            rows="3"
+                            required
+                            placeholder="Enter pickup address"
+                          ></textarea>
+                        </div>
+                        <div class="mb-4">
+                          <label class="form-label fw-bold">Photo of the Oil *</label>
+                          <input class="form-control" type="file" id="sell-photo" accept="image/*" required />
+                          <div id="sell-preview-container" class="image-preview d-none">
+                            <img id="sell-preview-img" src="" alt="Preview" />
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2">Submit Sell Request</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- User Buy Form Pane -->
+            <div class="tab-pane fade" id="pane-user-buy" role="tabpanel">
+              <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                      <h4 class="mb-0 text-secondary">Buy Recycled Cooking Oil</h4>
+                    </div>
+                    <div class="card-body p-4">
+                      <div id="buy-alert-container"></div>
+                      <form id="buy-form">
+                        <div class="mb-3">
+                          <label class="form-label fw-bold">Quantity (Liters) *</label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="buy-quantity"
+                            step="0.1"
+                            min="1"
+                            required
+                            placeholder="e.g. 50.0"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label fw-bold">Delivery Address *</label>
+                          <textarea
+                            class="form-control"
+                            id="buy-address"
+                            rows="3"
+                            required
+                            placeholder="Enter delivery address"
+                          ></textarea>
+                        </div>
+                        <div class="mb-4">
+                          <label class="form-label fw-bold">Payment Proof *</label>
+                          <input class="form-control" type="file" id="buy-proof" accept="image/*" required />
+                          <div id="buy-preview-container" class="image-preview d-none">
+                            <img id="buy-preview-img" src="" alt="Preview" />
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-secondary w-100 py-2 text-white">
+                          Submit Buy Request
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============================== -->
+            <!--          ADMIN PANES           -->
+            <!-- ============================== -->
+
+            <!-- Admin Sell Requests Pane -->
+            <div class="tab-pane fade" id="pane-admin-sell" role="tabpanel">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Manage Sell Requests</h2>
+                <button class="btn btn-sm btn-outline-primary" onclick="loadAdminData('sell')">
+                  <i class="bi bi-arrow-clockwise"></i> Refresh
+                </button>
+              </div>
+              <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th class="ps-4">ID</th>
+                          <th>User</th>
+                          <th>Quantity (L)</th>
+                          <th>Address</th>
+                          <th>Photo</th>
+                          <th>Status</th>
+                          <th class="text-end pe-4">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-sell-body">
+                        <tr>
+                          <td colspan="7" class="text-center py-4">Loading...</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Admin Buy Requests Pane -->
+            <div class="tab-pane fade" id="pane-admin-buy" role="tabpanel">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Manage Buy Requests</h2>
+                <button class="btn btn-sm btn-outline-secondary" onclick="loadAdminData('buy')">
+                  <i class="bi bi-arrow-clockwise"></i> Refresh
+                </button>
+              </div>
+              <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th class="ps-4">ID</th>
+                          <th>User</th>
+                          <th>Quantity (L)</th>
+                          <th>Delivery</th>
+                          <th>Proof</th>
+                          <th>Status</th>
+                          <th class="text-end pe-4">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-buy-body">
+                        <tr>
+                          <td colspan="7" class="text-center py-4">Loading...</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content bg-transparent border-0">
+          <div class="modal-header border-0 pb-0">
+            <button
+              type="button"
+              class="btn-close btn-close-white ms-auto"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center p-0 mt-2">
+            <img
+              src=""
+              id="modalImage"
+              class="img-fluid rounded shadow-lg"
+              alt="Enlarged Image"
+              style="max-height: 80vh"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./assets/js/main.js"></script>
+
+    <script>
+      // Global state and DOM elements
+      let currentUser = null;
+      const imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+
+      function showImage(url) {
+        document.getElementById('modalImage').src = url;
+        imageModal.show();
+      }
+
+      function getStatusBadge(status) {
+        const s = status.toUpperCase();
+        if (s === 'PENDING') return `<span class="badge badge-pending rounded-pill px-3 py-1">Pending</span>`;
+        if (s === 'ACCEPTED') return `<span class="badge badge-accepted rounded-pill px-3 py-1">Accepted</span>`;
+        if (s === 'REJECTED') return `<span class="badge badge-rejected rounded-pill px-3 py-1">Rejected</span>`;
+        return `<span class="badge bg-secondary rounded-pill px-3 py-1">${status}</span>`;
+      }
+
+      // --- USER FUNCTIONS ---
+      async function loadUserHistory() {
+        const fetchHistory = async (endpoint) => {
+          try {
+            const res = await fetch(`${API_BASE_URL}${endpoint}`, { headers: { Accept: 'application/json' } });
+            const result = await res.json();
+            return res.ok && result.success ? result.data : [];
+          } catch (e) {
+            return [];
+          }
+        };
+
+        const renderTable = (data, tbodyId) => {
+          const tbody = document.getElementById(tbodyId);
+          if (!data || !data.length) {
+            tbody.innerHTML = `<tr><td colspan="3" class="text-center py-4 text-muted">No records found.</td></tr>`;
+            return;
+          }
+          tbody.innerHTML = data
+            .map(
+              (item) => `
+                    <tr>
+                        <td class="ps-4">${new Date(item.created_at).toLocaleDateString()}</td>
+                        <td class="fw-bold">${parseFloat(item.quantity_liter).toFixed(2)} L</td>
+                        <td>${getStatusBadge(item.status)}</td>
+                    </tr>
+                `
+            )
+            .join('');
+        };
+
+        const [sellData, buyData] = await Promise.all([fetchHistory('/sell-requests'), fetchHistory('/buy-requests')]);
+        renderTable(sellData, 'user-sell-history');
+        renderTable(buyData, 'user-buy-history');
+      }
+
+      function setupImagePreview(inputId, previewImgId, containerId) {
+        document.getElementById(inputId).addEventListener('change', function () {
+          const file = this.files[0];
+          const container = document.getElementById(containerId);
+          const img = document.getElementById(previewImgId);
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              img.src = e.target.result;
+              container.classList.remove('d-none');
+            };
+            reader.readAsDataURL(file);
+          } else {
+            img.src = '';
+            container.classList.add('d-none');
+          }
+        });
+      }
+
+      function setupForm(formId, alertId, type, endpoint, payloadBuilder) {
+        document.getElementById(formId).addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const alertContainer = document.getElementById(alertId);
+          alertContainer.innerHTML = '';
+
+          const fileInput = document.getElementById(type === 'SELL' ? 'sell-photo' : 'buy-proof');
+          const file = fileInput.files[0];
+          if (!file) {
+            alertContainer.innerHTML = '<div class="alert alert-danger">Please upload the required file.</div>';
+            return;
+          }
+
+          const submitBtn = e.target.querySelector('button[type="submit"]');
+          try {
+            showLoader();
+            submitBtn.disabled = true;
+
+            const photoUrl = await uploadImage(file, type);
+            const payload = payloadBuilder(photoUrl);
+
+            const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+              alertContainer.innerHTML = `<div class="alert alert-success">${type === 'SELL' ? 'Sell' : 'Buy'} request submitted successfully!</div>`;
+              e.target.reset();
+              document
+                .getElementById(type === 'SELL' ? 'sell-preview-container' : 'buy-preview-container')
+                .classList.add('d-none');
+              loadUserHistory();
+
+              // Switch back to overview
+              setTimeout(() => {
+                const overviewTab = new bootstrap.Tab(document.getElementById('tab-user-overview'));
+                overviewTab.show();
+                alertContainer.innerHTML = '';
+              }, 1500);
+            } else {
+              alertContainer.innerHTML = `<div class="alert alert-danger">${data.error?.message || 'Failed to submit request.'}</div>`;
+            }
+          } catch (err) {
+            alertContainer.innerHTML = `<div class="alert alert-danger">${err.message || 'Error occurred.'}</div>`;
+          } finally {
+            submitBtn.disabled = false;
+            hideLoader();
+          }
+        });
+      }
+
+      // --- ADMIN FUNCTIONS ---
+      async function loadAdminData(type) {
+        const tbodyId = type === 'sell' ? 'admin-sell-body' : 'admin-buy-body';
+        const endpoint = type === 'sell' ? '/admin/sell-requests' : '/admin/buy-requests';
+        const tbody = document.getElementById(tbodyId);
+
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4">Loading...</td></tr>';
+        try {
+          const res = await fetch(`${API_BASE_URL}${endpoint}`, { headers: { Accept: 'application/json' } });
+          const result = await res.json();
+
+          if (res.ok && result.success) {
+            if (!result.data || !result.data.length) {
+              tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">No pending requests.</td></tr>`;
+              return;
+            }
+
+            tbody.innerHTML = result.data
+              .map((item) => {
+                const address = type === 'sell' ? item.pickup_address : item.delivery_address;
+                const imgUrl = type === 'sell' ? item.photo_url : item.payment_proof_url;
+
+                let actions =
+                  item.status === 'PENDING'
+                    ? `<button class="btn btn-sm btn-success me-1" onclick="verifyRequest('${type}', ${item.id}, 'ACCEPTED')" title="Accept"><i class="bi bi-check-lg"></i></button>
+                               <button class="btn btn-sm btn-danger" onclick="verifyRequest('${type}', ${item.id}, 'REJECTED')" title="Reject"><i class="bi bi-x-lg"></i></button>`
+                    : `<span class="text-muted small">Processed</span>`;
+
+                return `
+                            <tr>
+                                <td class="ps-4 fw-bold">#${item.id}</td>
+                                <td><div>${item.user?.first_name || 'User'}</div><div class="small text-muted">ID: ${item.user?.id || '-'}</div></td>
+                                <td class="fw-bold">${parseFloat(item.quantity_liter).toFixed(2)} L</td>
+                                <td class="text-truncate" style="max-width: 200px;" title="${address}">${address}</td>
+                                <td>${imgUrl ? `<img src="${imgUrl}" class="table-image" onclick="showImage('${imgUrl}')">` : '-'}</td>
+                                <td>${getStatusBadge(item.status)}</td>
+                                <td class="text-end pe-4">${actions}</td>
+                            </tr>
+                        `;
+              })
+              .join('');
+          } else {
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger">Failed to load data.</td></tr>`;
+          }
+        } catch (err) {
+          tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger">Error connecting to server.</td></tr>`;
+        }
+      }
+
+      window.verifyRequest = async (type, id, status) => {
+        if (!confirm(`Are you sure you want to mark this as ${status}?`)) return;
+        showLoader();
+        try {
+          const res = await fetch(`${API_BASE_URL}/admin/${type}-requests/${id}/verify`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ status }),
+          });
+          const result = await res.json();
+          if (res.ok && result.success) {
+            loadAdminData(type);
+          } else {
+            alert(result.error?.message || 'Failed to update request');
+          }
+        } catch (err) {
+          alert('An error occurred.');
+        } finally {
+          hideLoader();
+        }
+      };
+
+      // --- INIT ---
+      document.addEventListener('DOMContentLoaded', async () => {
+        showLoader();
+        currentUser = await checkAuth();
+
+        if (!currentUser) {
+          window.location.href = 'login.html';
+          return;
+        }
+
+        document.getElementById('sidebar-user-name').textContent = currentUser.first_name;
+
+        // Style active pills dynamically
+        document.querySelectorAll('#v-pills-tab .nav-link').forEach((pill) => {
+          pill.addEventListener('shown.bs.tab', (e) => {
+            document
+              .querySelectorAll('#v-pills-tab .nav-link')
+              .forEach((p) => p.classList.remove('bg-light', 'text-primary', 'text-secondary'));
+            e.target.classList.add(
+              'bg-light',
+              e.target.id.includes('sell')
+                ? 'text-primary'
+                : e.target.id.includes('buy')
+                  ? 'text-secondary'
+                  : 'text-primary'
+            );
+          });
+        });
+
+        if (currentUser.role === 'ADMIN') {
+          // Admin Setup
+          document.getElementById('admin-badge').classList.remove('d-none');
+          document.getElementById('top-navbar').classList.replace('bg-white', 'bg-dark');
+          document.getElementById('top-navbar').classList.add('navbar-dark');
+          document.getElementById('sidebar-user-role').textContent = 'Admin';
+
+          document.getElementById('admin-menu').classList.remove('d-none');
+
+          // Activate first admin tab
+          const firstAdminTab = new bootstrap.Tab(document.getElementById('tab-admin-sell'));
+          firstAdminTab.show();
+          document.getElementById('tab-admin-sell').classList.add('bg-light', 'text-primary');
+
+          await loadAdminData('sell');
+          await loadAdminData('buy');
+        } else {
+          // User Setup
+          document.getElementById('user-menu').classList.remove('d-none');
+
+          // Activate first user tab
+          const firstUserTab = new bootstrap.Tab(document.getElementById('tab-user-overview'));
+          firstUserTab.show();
+          document.getElementById('tab-user-overview').classList.add('bg-light', 'text-primary');
+
+          // Setup Forms
+          setupImagePreview('sell-photo', 'sell-preview-img', 'sell-preview-container');
+          setupImagePreview('buy-proof', 'buy-preview-img', 'buy-preview-container');
+
+          setupForm('sell-form', 'sell-alert-container', 'SELL', '/sell-requests', (photoUrl) => ({
+            quantity_liter: parseFloat(document.getElementById('sell-quantity').value),
+            pickup_address: document.getElementById('sell-address').value,
+            photo_url: photoUrl,
+          }));
+
+          setupForm('buy-form', 'buy-alert-container', 'BUY', '/buy-requests', (photoUrl) => ({
+            quantity_liter: parseFloat(document.getElementById('buy-quantity').value),
+            delivery_address: document.getElementById('buy-address').value,
+            payment_proof_url: photoUrl,
+          }));
+
+          await loadUserHistory();
+        }
+
+        hideLoader();
+      });
+    </script>
+  </body>
+</html>

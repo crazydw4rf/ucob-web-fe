@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - UCOB</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body class="d-flex flex-column min-vh-100 bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">UC<span>OB</span></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">Profile</a>
+            </li>
+            <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+              <a class="btn btn-primary px-4" href="dashboard.html">Dashboard</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1">
+      <!-- Page Header -->
+      <section class="bg-dark text-white py-5 text-center">
+        <div class="container py-4">
+          <h1 class="display-4 fw-bold gsap-reveal">About UCOB</h1>
+          <p class="lead text-light gsap-reveal">Empowering a sustainable future through responsible recycling.</p>
+        </div>
+      </section>
+
+      <!-- Mission Section -->
+      <section class="py-5 mt-4">
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-lg-8 text-center gsap-reveal">
+              <h2 class="text-primary mb-4">Our Mission</h2>
+              <p class="fs-5 text-muted mb-4">
+                The Used Cooking Oil Buying & Selling Platform (UCOB) was born from a simple college project with a grand vision: to prevent environmental damage caused by improper disposal of used cooking oil, and to create an accessible marketplace where waste is transformed into valuable resources like biofuel.
+              </p>
+              <p class="fs-5 text-muted">
+                We bridge the gap between households, restaurants, and industrial buyers. By providing a seamless, reliable platform, we ensure that every drop of used oil is recycled ethically, benefiting both our planet and our economy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Values Section -->
+      <section class="py-5 bg-white border-top border-bottom">
+        <div class="container">
+          <h2 class="text-center mb-5 gsap-reveal">Our Core Values</h2>
+          <div class="row g-4 text-center">
+            <div class="col-md-4 gsap-reveal">
+              <div class="p-4">
+                <div class="display-4 text-primary mb-3"><i class="bi bi-globe-americas"></i></div>
+                <h4 class="fw-bold">Sustainability</h4>
+                <p class="text-muted">We prioritize the health of our planet by ensuring harmful waste products are repurposed safely.</p>
+              </div>
+            </div>
+            <div class="col-md-4 gsap-reveal">
+              <div class="p-4">
+                <div class="display-4 text-secondary mb-3"><i class="bi bi-people-fill"></i></div>
+                <h4 class="fw-bold">Community</h4>
+                <p class="text-muted">We empower individuals and local businesses to participate in the circular economy effortlessly.</p>
+              </div>
+            </div>
+            <div class="col-md-4 gsap-reveal">
+              <div class="p-4">
+                <div class="display-4 text-primary mb-3"><i class="bi bi-shield-check"></i></div>
+                <h4 class="fw-bold">Transparency</h4>
+                <p class="text-muted">We provide a secure, clear, and trustworthy platform for all buying and selling transactions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="py-5 my-4 text-center">
+        <div class="container gsap-reveal">
+          <h3 class="mb-4">Ready to make an impact?</h3>
+          <p class="text-muted mb-4">Join our growing network of environmentally conscious traders today.</p>
+          <a href="dashboard.html" class="btn btn-primary btn-lg px-5">Go to Dashboard</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-auto">
+      <div class="container text-center">
+        <p class="mb-0">&copy; 2024 UCOB Platform. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./assets/js/main.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+        gsap.fromTo(
+          '.gsap-reveal',
+          { y: 30, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.2, ease: 'power3.out' }
+        );
+      });
+    </script>
+  </body>
+</html>
