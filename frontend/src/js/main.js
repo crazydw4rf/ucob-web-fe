@@ -1,13 +1,7 @@
-/**
- * UCOB - Main JavaScript Utilities
- */
+import { API_BASE_URL } from './constants';
+import gsap from 'gsap';
 
-const API_BASE_URL = 'http://localhost:3000/v1'; // Adjust as needed for deployment
-// const API_BASE_URL = 'https://a495f79c-0188-400e-9a7e-ac496d5c2c46.mock.pstmn.io';
-
-// --- UI Utilities ---
-
-function showLoader() {
+export function showLoader() {
   let loader = document.getElementById('global-loader');
   if (!loader) {
     loader = document.createElement('div');
@@ -19,14 +13,14 @@ function showLoader() {
   loader.classList.add('active');
 }
 
-function hideLoader() {
+export function hideLoader() {
   const loader = document.getElementById('global-loader');
   if (loader) {
     loader.classList.remove('active');
   }
 }
 
-function showToast(message, type = 'success') {
+export function showToast(message, type = 'success') {
   // Simple alert for now, can be replaced with a proper toast library like Toastify or Bootstrap Toasts
   alert(`${type.toUpperCase()}: ${message}`);
 }
@@ -38,7 +32,7 @@ function showToast(message, type = 'success') {
  * Relies on the HttpOnly cookie.
  * @returns {Promise<Object|null>} User data object or null if not authenticated
  */
-async function checkAuth() {
+export async function checkAuth() {
   try {
     const response = await fetch(`${API_BASE_URL}/users/me`, {
       method: 'GET',
@@ -64,7 +58,7 @@ async function checkAuth() {
 /**
  * Logs the user out and redirects to login page.
  */
-async function logout() {
+export async function logout() {
   showLoader();
   try {
     await fetch(`${API_BASE_URL}/auth/logout`, {
@@ -88,7 +82,7 @@ async function logout() {
  * @param {String} transactionType - 'SELL' or 'BUY'
  * @returns {Promise<String>} The public URL of the uploaded image
  */
-async function uploadImage(file, transactionType) {
+export async function uploadImage(file, transactionType) {
   if (!file) throw new Error('No file provided');
 
   // 1. Get signed URL from backend
@@ -128,10 +122,7 @@ async function uploadImage(file, transactionType) {
   return public_url;
 }
 
-// --- Global Initialization ---
-
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize common GSAP animations if elements exist
   if (typeof gsap !== 'undefined') {
     const revealElements = document.querySelectorAll('.gsap-reveal');
     if (revealElements.length > 0) {

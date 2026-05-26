@@ -1,0 +1,19 @@
+{
+  "name": "ucob-web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.0.12",
+    "vite-plugin-html-config": "^2.0.2"
+  },
+  "dependencies": {
+    "glob": "^13.0.6",
+    "gsap": "^3.15.0"
+  }
+}
