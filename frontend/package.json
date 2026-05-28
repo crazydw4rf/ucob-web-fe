@@ -9,10 +9,15 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.4",
+    "@types/bootstrap": "^5.2.10",
+    "typescript": "~6",
     "vite": "^8.0.12",
     "vite-plugin-html-config": "^2.0.2"
   },
   "dependencies": {
+    "axios": "^1.16.1",
+    "bootstrap": "^5.3.8",
     "glob": "^13.0.6",
     "gsap": "^3.15.0"
   }

@@ -1,5 +1,5 @@
 const config = {
-  singleQuote: true,
+  singleQuote: false,
   semi: true,
   tabWidth: 2,
   printWidth: 120,

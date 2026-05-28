@@ -1,140 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register - UCOB</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet" />
-</head>
-<body class="bg-light d-flex flex-column min-vh-100">
-
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-white sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">UC<span>OB</span></a>
-        </div>
+      <div class="container">
+        <a class="navbar-brand" href="index.html">UC<span>OB</span></a>
+      </div>
     </nav>
 
     <!-- Main Content -->
     <main class="flex-grow-1 d-flex align-items-center py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-5">
-                    <div class="card gsap-reveal border-0 shadow-sm">
-                        <div class="card-body p-4 p-md-5">
-                            <h2 class="text-center mb-4 text-primary">Create an Account</h2>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-5">
+            <div class="card gsap-reveal border-0 shadow-sm">
+              <div class="card-body p-4 p-md-5">
+                <h2 class="text-center mb-4 text-primary">Create an Account</h2>
 
-                            <div id="alert-container"></div>
+                <div id="alert-container"></div>
 
-                            <form id="register-form">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="firstName" class="form-label">First Name *</label>
-                                        <input type="text" class="form-control" id="firstName" required placeholder="John">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="lastName" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="lastName" placeholder="Doe">
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email Address *</label>
-                                    <input type="email" class="form-control" id="email" required placeholder="name@example.com">
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="password" class="form-label">Password *</label>
-                                    <input type="password" class="form-control" id="password" required placeholder="Create a password">
-                                    <div class="form-text">Minimum 6 characters.</div>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary w-100 py-2 mb-3">Register</button>
-
-                                <p class="text-center text-muted mb-0">
-                                    Already have an account? <a href="login.html" class="text-decoration-none">Log in</a>
-                                </p>
-                            </form>
-                        </div>
+                <form id="register-form">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="firstName" class="form-label">First Name *</label>
+                      <input type="text" class="form-control" id="firstName" required placeholder="John" />
                     </div>
-                </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="lastName" class="form-label">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" placeholder="Doe" />
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email Address *</label>
+                    <input type="email" class="form-control" id="email" required placeholder="name@example.com" />
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="password" class="form-label">Password *</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      required
+                      placeholder="Create a password"
+                    />
+                    <div class="form-text">Minimum 6 characters.</div>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary w-100 py-2 mb-3">Register</button>
+
+                  <p class="text-center text-muted mb-0">
+                    Already have an account? <a href="login.html" class="text-decoration-none">Log in</a>
+                  </p>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </main>
 
     <!-- Footer -->
     <footer class="bg-dark text-white py-3 mt-auto">
-        <div class="container text-center">
-            <p class="mb-0 small">&copy; 2024 UCOB Platform. All rights reserved.</p>
-        </div>
+      <div class="container text-center">
+        <p class="mb-0 small">&copy; 2024 UCOB Platform. All rights reserved.</p>
+      </div>
     </footer>
+    <script src="js/register.js" type="module"></script>
+    <script type="module">
+      import { gsapAnimReveal } from "./js/utils.js";
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <!-- Custom JS -->
-    <script src=js/main.js type="module"></script>
-    <script>
-        document.getElementById('register-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const firstName = document.getElementById('firstName').value.trim();
-            const lastName = document.getElementById('lastName').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const alertContainer = document.getElementById('alert-container');
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-
-            // Clear previous alerts
-            alertContainer.innerHTML = '';
-
-            if (password.length < 6) {
-                alertContainer.innerHTML = '<div class="alert alert-danger">Password must be at least 6 characters long.</div>';
-                return;
-            }
-
-            try {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Registering...';
-
-                const response = await fetch(`${API_BASE_URL}/users`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        first_name: firstName,
-                        last_name: lastName || undefined,
-                        email: email,
-                        password: password
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.success) {
-                    alertContainer.innerHTML = '<div class="alert alert-success">Registration successful! Redirecting to login...</div>';
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 2000);
-                } else {
-                    alertContainer.innerHTML = `<div class="alert alert-danger">${data.error?.message || 'Registration failed. Please try again.'}</div>`;
-                }
-            } catch (error) {
-                console.error('Registration error:', error);
-                alertContainer.innerHTML = '<div class="alert alert-danger">An unexpected error occurred. Check if the server is running.</div>';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Register';
-            }
-        });
+      document.addEventListener("DOMContentLoaded", () => gsapAnimReveal());
     </script>
-</body>
+  </body>
 </html>

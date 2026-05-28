@@ -19,12 +19,7 @@
     <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-sm">
       <div class="container">
         <a class="navbar-brand" href="index.html">UC<span>OB</span></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -53,7 +48,7 @@
           <div class="col-md-8 col-lg-6">
             <div class="card border-0 shadow-sm gsap-reveal">
               <div class="card-header bg-white text-center py-4 border-bottom-0">
-                <i class="bi bi-person-circle text-secondary" style="font-size: 5rem;"></i>
+                <i class="bi bi-person-circle text-secondary" style="font-size: 5rem"></i>
                 <h2 class="mt-3 mb-0" id="profile-name">Loading...</h2>
                 <span class="badge bg-primary mt-2" id="profile-role">USER</span>
               </div>
@@ -96,46 +91,13 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <!-- Custom JS -->
-    <script src=js/main.js type="module"></script>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', async () => {
-        showLoader();
+    <script type="module" src="./js/profile.js"></script>
+    <script type="module">
+      import { gsapAnimReveal } from "./js/utils.js";
 
-        // Reveal animation
-        gsap.fromTo(
-          '.gsap-reveal',
-          { y: 30, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.6, ease: 'power2.out' }
-        );
-
-        // Fetch User Data
-        const user = await checkAuth();
-
-        if (!user) {
-          // Redirect to login if not authenticated
-          window.location.href = 'login.html';
-          return;
-        }
-
-        // Populate Profile Data
-        const fullName = `${user.first_name} ${user.last_name || ''}`.trim();
-        document.getElementById('profile-name').textContent = fullName;
-        document.getElementById('profile-first-name').textContent = user.first_name;
-        document.getElementById('profile-last-name').textContent = user.last_name || '-';
-        document.getElementById('profile-email').textContent = user.email;
-
-        const roleBadge = document.getElementById('profile-role');
-        roleBadge.textContent = user.role;
-        if (user.role === 'ADMIN') {
-          roleBadge.classList.replace('bg-primary', 'bg-danger');
-        }
-
-        hideLoader();
-      });
+      document.addEventListener("DOMContentLoaded", () => gsapAnimReveal());
     </script>
   </body>
 </html>
