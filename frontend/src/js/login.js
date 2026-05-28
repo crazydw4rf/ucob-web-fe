@@ -1,4 +1,6 @@
-const loginForm = document.querySelector("#login-form");
+import { ApiRequest } from "./api";
+
+const loginForm = document.getElementById("login-form");
 
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -16,21 +18,27 @@ loginForm.addEventListener("submit", async (e) => {
     submitBtn.innerHTML =
       '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...';
 
-    const response = await fetch(`${API_URL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
+    // const response = await fetch(`${API_URL}/auth/login`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     email: email,
+    //     password: password,
+    //   }),
+    // });
+    //
+    // const data = await response.json();
 
-    const data = await response.json();
+    const req = ApiRequest("/auth/login");
+    let data = await req.postRequest({ email, password });
+    data = JSON.parse(data.data);
 
-    if (response.ok && data.success) {
+    console.log(data);
+
+    if (data.code < 400 && data.success) {
       alertContainer.innerHTML = '<div class="alert alert-success">Login successful! Redirecting...</div>';
 
       setTimeout(() => {
